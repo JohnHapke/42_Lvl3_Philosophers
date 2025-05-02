@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/01 16:11:56 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/02 10:02:25 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <sys/time.h>
+
+# define MY_INT_MIN -2147483648
+# define MY_INT_MAX 2147483647
 
 typedef struct s_fork
 {
@@ -48,13 +52,10 @@ typedef struct s_philo
 	t_data		*data;
 }	t_philo;
 
-typedef struct s_data
-{
-	int	num_of_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	meals_required;
-}	t_data;
+// utils
+int		ft_atoi(char *str);
+
+// core
+void	ft_init(int argc, char **argv, t_data *data);
 
 #endif
