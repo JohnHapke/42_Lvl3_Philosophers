@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/02 11:06:04 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/07 12:07:02 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,18 @@ void	ft_init_project(int argc, char **argv, t_data *data)
 			if (data->meals_required < 0)
 				ft_error();
 		}
+		ft_init_time(data);
 		ft_init_mutex(data);
 	}
+}
+
+void	ft_time_init(t_data *data)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	data->simulation_time = current_time.tv_sec
+		* 1000 + current_time.tv_usec / 1000;
 }
 
 void	ft_init_mutex(t_data *data)
@@ -72,5 +82,6 @@ void	ft_init_philos(t_data *data, t_fork *forks)
 		philos[i].id = i + 1;
 		philos[i].meals = 0;
 		philos[i].data = data;
+		philos[i].last_meal = data->simulation_time;
 	}
 }

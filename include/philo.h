@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/02 10:02:25 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/07 12:11:19 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_philo
 	pthread_t	thread;
 	int			state;
 	int			meals;
-	int			last_meal;
+	long long	last_meal;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 	t_fork		*reference;
@@ -56,6 +56,10 @@ typedef struct s_philo
 int		ft_atoi(char *str);
 
 // core
-void	ft_init(int argc, char **argv, t_data *data);
+void	ft_init_project(int argc, char **argv, t_data *data);
+void	ft_time_init(t_data *data);
+void	ft_init_mutex(t_data *data);
+void	ft_init_philos(t_data *data, t_fork *forks);
+
 
 #endif
