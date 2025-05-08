@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/07 12:11:19 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/08 09:59:33 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,17 @@ typedef struct s_philo
 }	t_philo;
 
 // utils
-int		ft_atoi(char *str);
+int			ft_atoi(char *str);
 
 // core
-void	ft_init_project(int argc, char **argv, t_data *data);
-void	ft_time_init(t_data *data);
-void	ft_init_mutex(t_data *data);
-void	ft_init_philos(t_data *data, t_fork *forks);
+void		ft_init_project(int argc, char **argv, t_data *data);
+void		ft_time_init(t_data *data);
+void		ft_init_mutex(t_data *data);
+void		ft_init_philos(t_data *data, t_fork *forks);
+
+// time
+long long	ft_get_current_time(void);
+long long	ft_elapsed_time(t_data *data);
 
 
 #endif
