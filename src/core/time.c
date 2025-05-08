@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 09:50:45 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/08 09:59:21 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/08 17:15:25 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ long long	ft_get_current_time(void)
 	long long		time_in_ms;
 
 	gettimeofday(&current_time, NULL);
-	time_in_ms = current_time.tv_sec / 1000 + current_time.tv_usec * 1000;
+	time_in_ms = current_time.tv_sec * 1000 + current_time.tv_usec / 1000;
 	return (time_in_ms);
 }
 
