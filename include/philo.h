@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/08 09:59:33 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/08 15:47:29 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 
 # define MY_INT_MIN -2147483648
 # define MY_INT_MAX 2147483647
+
+typedef enum e_routine_code
+{
+	R_THINK,
+	R_EAT,
+	R_SLEEP,
+	R_DEAD,
+	R_FORK,
+}	t_routine_code;
 
 typedef struct s_fork
 {
