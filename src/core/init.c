@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/07 12:07:02 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/09 09:46:38 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,19 @@ void	ft_init_mutex(t_data *data)
 
 void	ft_init_philos(t_data *data, t_fork *forks)
 {
-	t_philo	*philos;
 	int		i;
 
-	philos = malloc(data->num_of_philo * sizeof(t_philo));
-	if (!philos)
+	data->philos = malloc(data->num_of_philo * sizeof(t_philo));
+	if (!data->philos)
 		ft_error();
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
-		philos[i].left_fork = &forks[i];
-		philos[i].right_fork = &forks[(i + 1) % data->num_of_philo];
-		philos[i].id = i + 1;
-		philos[i].meals = 0;
-		philos[i].data = data;
-		philos[i].last_meal = data->simulation_time;
+		data->philos[i].left_fork = &forks[i];
+		data->philos[i].right_fork = &forks[(i + 1) % data->num_of_philo];
+		data->philos[i].id = i + 1;
+		data->philos[i].meals = 0;
+		data->philos[i].data = data;
+		data->philos[i].last_meal = data->simulation_time;
 	}
 }

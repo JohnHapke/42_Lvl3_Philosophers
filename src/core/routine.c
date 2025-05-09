@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:58:02 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/08 17:16:01 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/09 08:52:20 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ void	ft_print_status(t_philo *philos, t_routine_code code)
 	if (!philos->data->simulation_end)
 	{
 		if (code == R_SLEEP)
-		printf("%ld %d is sleeping", ft_elapsed_time(philos->data), philos->id);
+			printf("%ld %d is sleeping",
+				ft_elapsed_time(philos->data), philos->id);
 		else if (code == R_THINK)
-			printf("%ld %d is thinking", ft_elapsed_time(philos->data), philos->id);
+			printf("%ld %d is thinking",
+				ft_elapsed_time(philos->data), philos->id);
 		else if (code == R_EAT)
-			printf("%ld %d is eating", ft_elapsed_time(philos->data), philos->id);
+			printf("%ld %d is eating",
+				ft_elapsed_time(philos->data), philos->id);
 		else if (code == R_FORK)
-			printf("%ld %d has taken a fork", ft_elapsed_time(philos->data), philos->id);
+			printf("%ld %d has taken a fork",
+				ft_elapsed_time(philos->data), philos->id);
 		else if (code == R_DEAD)
 			printf("%ld %d died", ft_elapsed_time(philos->data), philos->id);
 		else
@@ -51,7 +55,6 @@ void	ft_eat(t_philo *philos)
 	philos->last_meal = ft_get_current_time();
 	usleep(philos->data->time_to_eat * 1000);
 	philos->meals += 1;
-	
 }
 
 void	*ft_philosopher_routine(void *args)

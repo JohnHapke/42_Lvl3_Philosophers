@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:05 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/02 10:06:06 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/09 10:05:32 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (0);
 		ft_init(argc, argv, data);
+		ft_pthread_create(data);
 }

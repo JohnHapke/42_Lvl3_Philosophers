@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/08 15:47:29 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/09 10:08:15 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,6 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }	t_fork;
 
-typedef struct s_data
-{
-	int				num_of_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				meals_required;
-	long long		simulation_time;
-	int				simulation_end;
-	pthread_mutex_t	print_mutex;
-}	t_data;
-
 typedef struct s_philo
 {
 	int			id;
@@ -60,6 +48,19 @@ typedef struct s_philo
 	t_fork		*reference;
 	t_data		*data;
 }	t_philo;
+
+typedef struct s_data
+{
+	int				num_of_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				meals_required;
+	long long		simulation_time;
+	int				simulation_end;
+	pthread_mutex_t	print_mutex;
+	t_philo			*philos;
+}	t_data;
 
 // utils
 int			ft_atoi(char *str);
@@ -74,5 +75,15 @@ void		ft_init_philos(t_data *data, t_fork *forks);
 long long	ft_get_current_time(void);
 long long	ft_elapsed_time(t_data *data);
 
+// threads
+void		ft_create_threads(t_data *data);
+void		*ft_monitor_routine(void *args);
 
+// routine
+void		*ft_philosopher_routine(void *args);
+void		ft_eat(t_philo *philos);
+void		ft_sleep(t_philo *philos);
+void		ft_think(t_philo *philos);
+void		ft_print_status(t_philo *philos,
+				t_routine_code code);
 #endif
