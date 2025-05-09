@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 09:19:59 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/09 10:34:44 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/09 10:39:10 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Funktion ft_monitor_routine(void *args):
                 - Wenn alle genug: Setze simulation_end = 1
         - Kurze Pause (z.B. 1ms) um CPU-Last zu reduzieren
     - Return NULL (oder anderer Wert)
+
 
 void	*ft_monitor_routine(void *args)
 {
