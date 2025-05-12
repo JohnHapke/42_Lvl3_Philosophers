@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/09 09:46:38 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/12 12:52:42 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_init_project(int argc, char **argv, t_data *data)
 		data->time_to_sleep = ft_atoi(argv[4]);
 		if (data->time_to_sleep < 0)
 			ft_error();
+		data->meals_required = -1;
+		data->simulation_end = 0;
 		if (argc == 6)
 		{
 			data->meals_required = ft_atoi(argv[5]);
@@ -35,7 +37,6 @@ void	ft_init_project(int argc, char **argv, t_data *data)
 				ft_error();
 		}
 		ft_init_time(data);
-		ft_init_mutex(data);
 	}
 }
 
@@ -48,7 +49,7 @@ void	ft_time_init(t_data *data)
 		* 1000 + current_time.tv_usec / 1000;
 }
 
-void	ft_init_mutex(t_data *data)
+t_fork	*ft_init_mutex(t_data *data)
 {
 	t_fork	*forks;
 	int		i;
@@ -63,24 +64,28 @@ void	ft_init_mutex(t_data *data)
 		if (pthread_mutex_init(&(forks[i].mutex), NULL) == -1)
 			ft_error();
 	}
-	ft_init_philos(data, forks);
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+		ft_error_handler();
+	return (forks);
 }
 
-void	ft_init_philos(t_data *data, t_fork *forks)
+t_philo	*ft_init_philos(t_data *data, t_fork *forks)
 {
 	int		i;
+	t_philo	*philos;
 
-	data->philos = malloc(data->num_of_philo * sizeof(t_philo));
-	if (!data->philos)
+	philos = malloc(data->num_of_philo * sizeof(t_philo));
+	if (!philos)
 		ft_error();
 	i = -1;
 	while (++i < data->num_of_philo)
 	{
-		data->philos[i].left_fork = &forks[i];
-		data->philos[i].right_fork = &forks[(i + 1) % data->num_of_philo];
-		data->philos[i].id = i + 1;
-		data->philos[i].meals = 0;
-		data->philos[i].data = data;
-		data->philos[i].last_meal = data->simulation_time;
+		philos[i].left_fork = &forks[i];
+		philos[i].right_fork = &forks[(i + 1) % data->num_of_philo];
+		philos[i].id = i + 1;
+		philos[i].meals = 0;
+		philos[i].data = data;
+		philos[i].last_meal = data->simulation_time;
 	}
+	return (philos);
 }

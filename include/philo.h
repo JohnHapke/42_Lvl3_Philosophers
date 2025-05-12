@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/09 10:08:15 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/12 12:45:15 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,24 @@ typedef struct s_data
 	long long		simulation_time;
 	int				simulation_end;
 	pthread_mutex_t	print_mutex;
-	t_philo			*philos;
 }	t_data;
 
 // utils
 int			ft_atoi(char *str);
 
-// core
+// init
 void		ft_init_project(int argc, char **argv, t_data *data);
 void		ft_time_init(t_data *data);
-void		ft_init_mutex(t_data *data);
-void		ft_init_philos(t_data *data, t_fork *forks);
+t_fork		*ft_init_mutex(t_data *data);
+t_philo		*ft_init_philos(t_data *data, t_fork *forks);
 
 // time
 long long	ft_get_current_time(void);
 long long	ft_elapsed_time(t_data *data);
 
 // threads
-void		ft_create_threads(t_data *data);
-void		*ft_monitor_routine(void *args);
+void		ft_create_threads(t_philo *philos, pthread_t *monitor);
+void		ft_join_threads(t_philo *philos, pthread_t *monitor);
 
 // routine
 void		*ft_philosopher_routine(void *args);
@@ -86,4 +85,10 @@ void		ft_sleep(t_philo *philos);
 void		ft_think(t_philo *philos);
 void		ft_print_status(t_philo *philos,
 				t_routine_code code);
+
+// monitor
+void		*ft_monitor_routine(void *args);
+int			ft_monitor_time(t_philo *philos);
+int			ft_monitor_meals(t_philo *philos);
+
 #endif
