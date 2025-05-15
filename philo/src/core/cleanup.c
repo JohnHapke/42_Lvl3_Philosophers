@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:32:37 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/14 10:38:59 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/15 10:59:16 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,18 @@ void	ft_cleanup_memory(t_data *data, t_philo *philos,
 			t_fork *forks)
 {
 	if (data)
+	{
 		free (data);
+		data = NULL;
+	}
 	if (philos)
+	{
 		free (philos);
+		philos = NULL;
+	}
 	if (forks)
+	{
 		free (forks);
+		forks = NULL;
+	}
 }

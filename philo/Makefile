@@ -6,7 +6,7 @@
 #    By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 10:07:26 by jhapke            #+#    #+#              #
-#    Updated: 2025/05/14 11:15:07 by jhapke           ###   ########.fr        #
+#    Updated: 2025/05/15 09:37:42 by jhapke           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,12 @@ SOURCE = 	$(DIR_SRC)/main.c\
 			$(DIR_CORE)/routine.c\
 			$(DIR_CORE)/threads.c\
 			$(DIR_CORE)/time.c\
+			$(DIR_CORE)/activity.c\
 			$(DIR_UTILS)/utils.c
 
 OBJS = $(SOURCE:.c=.o)
 
-FLAGS = -Werror -Wextra -Wall
+FLAGS = -Werror -Wextra -Wall -g
 
 CC = gcc
 

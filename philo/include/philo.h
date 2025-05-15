@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/14 11:11:26 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/15 11:12:54 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum e_routine_code
 	R_SLEEP,
 	R_DEAD,
 	R_FORK,
+	R_ALL,
 }	t_routine_code;
 
 typedef struct s_fork
@@ -73,7 +74,7 @@ typedef struct s_philo
 int			ft_atoi(char *str);
 
 // init
-void		ft_init_project(int argc, char **argv, t_data *data);
+int			ft_init_project(int argc, char **argv, t_data *data);
 void		ft_init_time(t_data *data);
 t_fork		*ft_init_mutex(t_data *data);
 t_philo		*ft_init_philos(t_data *data, t_fork *forks);
@@ -86,13 +87,16 @@ long long	ft_elapsed_time(t_data *data);
 int			ft_create_threads(t_philo *philos, pthread_t *monitor);
 int			ft_join_threads(t_philo *philos, pthread_t *monitor);
 
+// activity
+int			ft_eat(t_philo *philos);
+int			ft_sleep(t_philo *philos);
+int			ft_think(t_philo *philos);
+
 // routine
 void		*ft_philosopher_routine(void *args);
-void		ft_eat(t_philo *philos);
-void		ft_sleep(t_philo *philos);
-void		ft_think(t_philo *philos);
 void		ft_print_status(t_philo *philos,
 				t_routine_code code);
+int			ft_routine_control(t_philo *philos);
 
 // monitor
 void		*ft_monitor_routine(void *args);

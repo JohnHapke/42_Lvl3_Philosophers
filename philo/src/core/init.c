@@ -6,38 +6,38 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/14 09:19:56 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/15 11:12:33 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_init_project(int argc, char **argv, t_data *data)
+int	ft_init_project(int argc, char **argv, t_data *data)
 {
-	if (argc == 5 || argc == 6)
+	data->num_of_philo = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->meals_required = -1;
+	data->simulation_end = 0;
+	if ((data->num_of_philo < 1 || data->num_of_philo > MY_INT_MAX)
+		|| (data->time_to_die < 0) || (data->time_to_eat < 0)
+		|| (data->time_to_sleep < 0))
 	{
-		data->num_of_philo = ft_atoi(argv[1]);
-		if (data->num_of_philo < 1 || data->num_of_philo > MY_INT_MAX)
-			ft_error_handler(data, NULL, NULL, E_INIT);
-		data->time_to_die = ft_atoi(argv[2]);
-		if (data->time_to_die < 0)
-			ft_error_handler(data, NULL, NULL, E_INIT);
-		data->time_to_eat = ft_atoi(argv[3]);
-		if (data->time_to_eat < 0)
-			ft_error_handler(data, NULL, NULL, E_INIT);
-		data->time_to_sleep = ft_atoi(argv[4]);
-		if (data->time_to_sleep < 0)
-			ft_error_handler(data, NULL, NULL, E_INIT);
-		data->meals_required = -1;
-		data->simulation_end = 0;
-		if (argc == 6)
-		{
-			data->meals_required = ft_atoi(argv[5]);
-			if (data->meals_required < 0)
-				ft_error_handler(data, NULL, NULL, E_INIT);
-		}
-		ft_init_time(data);
+		ft_error_handler(data, NULL, NULL, E_INIT);
+		return (1);
 	}
+	if (argc == 6)
+	{
+		data->meals_required = ft_atoi(argv[5]);
+		if (data->meals_required < 0)
+		{
+			ft_error_handler(data, NULL, NULL, E_INIT);
+			return (1);
+		}
+	}
+	ft_init_time(data);
+	return (0);
 }
 
 void	ft_init_time(t_data *data)
@@ -83,7 +83,7 @@ t_philo	*ft_init_philos(t_data *data, t_fork *forks)
 		philos[i].id = i + 1;
 		philos[i].meals = 0;
 		philos[i].data = data;
-		philos[i].last_meal = data->simulation_time;
+		philos[i].last_meal = ft_get_current_time();
 		pthread_mutex_init(&philos[i].mutex_meals, NULL);
 		pthread_mutex_init(&philos[i].mutex_last_meal, NULL);
 	}

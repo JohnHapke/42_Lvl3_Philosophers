@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:05 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/14 11:10:57 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/15 11:43:04 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	ft_project_handler(int argc, char **argv, t_data *data)
 	t_philo		*philos;
 	pthread_t	monitor;
 
-	ft_init_project(argc, argv, data);
+	if (ft_init_project(argc, argv, data) == 1)
+		return (1);
 	forks = ft_init_mutex(data);
 	if (!forks)
 	{
@@ -57,5 +58,6 @@ int	main(int argc, char **argv)
 	}
 	if (ft_project_handler(argc, argv, data) == 1)
 		return (1);
+	free (data);
 	return (0);
 }
