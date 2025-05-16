@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:56:13 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/15 11:30:41 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/16 11:42:57 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,16 @@ void	*ft_monitor_routine(void *args)
 		dead_philo = ft_monitor_time(philos);
 		if (dead_philo >= 0)
 		{
-			pthread_mutex_lock(&philos->data->print_mutex);
-			philos->data->simulation_end = 1;
-			pthread_mutex_unlock(&philos->data->print_mutex);
+			ft_simulation_end_control(philos);
 			ft_print_status(&philos[dead_philo], R_DEAD);
 			break ;
 		}
 		if (ft_monitor_meals(philos) == 1)
 		{
-			pthread_mutex_lock(&philos->data->print_mutex);
-			philos->data->simulation_end = 1;
-			pthread_mutex_unlock(&philos->data->print_mutex);
+			ft_simulation_end_control(philos);
 			ft_print_status(philos, R_ALL);
 			break ;
 		}
-		usleep(1000);
 	}
 	return (NULL);
 }
@@ -55,6 +50,7 @@ int	ft_monitor_time(t_philo *philos)
 		pthread_mutex_unlock(&philos[i].mutex_last_meal);
 		if (time_since_last_meal > philos->data->time_to_die)
 			return (i);
+		usleep(100);
 	}
 	return (-1);
 }

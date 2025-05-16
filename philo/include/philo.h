@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/15 11:12:54 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/16 12:01:19 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
-
-# define MY_INT_MIN -2147483648
-# define MY_INT_MAX 2147483647
 
 typedef enum e_error_code
 {
@@ -83,9 +80,13 @@ t_philo		*ft_init_philos(t_data *data, t_fork *forks);
 long long	ft_get_current_time(void);
 long long	ft_elapsed_time(t_data *data);
 
+// single philo
+int			ft_handle_single_philo(t_data *data);
+
 // threads
 int			ft_create_threads(t_philo *philos, pthread_t *monitor);
 int			ft_join_threads(t_philo *philos, pthread_t *monitor);
+void		ft_simulation_end_control(t_philo *philos);
 
 // activity
 int			ft_eat(t_philo *philos);
@@ -97,6 +98,9 @@ void		*ft_philosopher_routine(void *args);
 void		ft_print_status(t_philo *philos,
 				t_routine_code code);
 int			ft_routine_control(t_philo *philos);
+int			ft_routine_mutex(t_philo *philos);
+int			ft_routine_odd_philos(t_philo *philos);
+int			ft_routine_even_philos(t_philo *philos);
 
 // monitor
 void		*ft_monitor_routine(void *args);
@@ -110,6 +114,6 @@ void		ft_cleanup_mutex(t_data *data, t_philo *philos, t_fork *forks);
 void		ft_cleanup_memory(t_data *data, t_philo *philos, t_fork *forks);
 
 // project handler
-int			ft_project_handler(int argc, char **argv, t_data *data);
+int			ft_project_handler(t_data *data);
 
 #endif

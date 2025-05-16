@@ -6,11 +6,18 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 09:19:59 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/15 11:30:05 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/16 11:39:40 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_simulation_end_control(t_philo *philos)
+{
+	pthread_mutex_lock(&philos->data->print_mutex);
+	philos->data->simulation_end = 1;
+	pthread_mutex_unlock(&philos->data->print_mutex);
+}
 
 int	ft_create_threads(t_philo *philos, pthread_t *monitor)
 {
@@ -22,7 +29,7 @@ int	ft_create_threads(t_philo *philos, pthread_t *monitor)
 		if (pthread_create(&philos[i].thread, NULL,
 				ft_philosopher_routine, &philos[i]) != 0)
 		{
-			philos->data->simulation_end = 1;
+			ft_simulation_end_control(philos);
 			while (--i >= 0)
 				pthread_join(philos[i].thread, NULL);
 			ft_error_handler(philos->data, philos, philos->left_fork, E_THREAD);
@@ -32,10 +39,9 @@ int	ft_create_threads(t_philo *philos, pthread_t *monitor)
 	if (pthread_create(monitor, NULL,
 			ft_monitor_routine, philos) != 0)
 	{
-		philos->data->simulation_end = 1;
-		i = -1;
-		while (++i < philos->data->num_of_philo)
-			pthread_join(philos[i].thread, NULL);
+		ft_simulation_end_control(philos);
+		if (ft_join_threads(philos, monitor) == 1)
+			return (1);
 		ft_error_handler(philos->data, philos, philos->left_fork, E_THREAD);
 		return (1);
 	}

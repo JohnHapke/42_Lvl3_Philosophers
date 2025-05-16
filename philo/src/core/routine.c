@@ -6,34 +6,11 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:58:02 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/15 11:34:07 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/16 11:28:51 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_print_status(t_philo *philos, t_routine_code code)
-{
-	pthread_mutex_lock(&philos->data->print_mutex);
-	if (philos->data->simulation_end == 0 && code == R_SLEEP)
-		printf("%lld %d is sleeping\n",
-			ft_elapsed_time(philos->data), philos->id);
-	else if (philos->data->simulation_end == 0 && code == R_THINK)
-		printf("%lld %d is thinking\n",
-			ft_elapsed_time(philos->data), philos->id);
-	else if (philos->data->simulation_end == 0 && code == R_EAT)
-		printf("%lld %d is eating\n",
-			ft_elapsed_time(philos->data), philos->id);
-	else if (philos->data->simulation_end == 0 && code == R_FORK)
-		printf("%lld %d has taken a fork\n",
-			ft_elapsed_time(philos->data), philos->id);
-	else if (philos->data->simulation_end == 1 || code == R_DEAD)
-		printf("%lld %d died\n", ft_elapsed_time(philos->data), philos->id);
-	else if (code == R_ALL)
-		printf("%lld maximum amount of meals eaten\n",
-			ft_elapsed_time(philos->data));
-	pthread_mutex_unlock(&philos->data->print_mutex);
-}
 
 int	ft_routine_control(t_philo *philos)
 {
@@ -47,6 +24,57 @@ int	ft_routine_control(t_philo *philos)
 	return (flag);
 }
 
+int	ft_routine_even_philos(t_philo *philos)
+{
+	pthread_mutex_lock(&philos->left_fork->mutex);
+	if (ft_routine_control(philos) == 1)
+	{
+		pthread_mutex_unlock(&philos->left_fork->mutex);
+		return (1);
+	}
+	pthread_mutex_lock(&philos->right_fork->mutex);
+	if (ft_routine_control(philos) == 1)
+	{
+		pthread_mutex_unlock(&philos->left_fork->mutex);
+		pthread_mutex_unlock(&philos->right_fork->mutex);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_routine_odd_philos(t_philo *philos)
+{
+	pthread_mutex_lock(&philos->right_fork->mutex);
+	if (ft_routine_control(philos) == 1)
+	{
+		pthread_mutex_unlock(&philos->right_fork->mutex);
+		return (1);
+	}
+	pthread_mutex_lock(&philos->left_fork->mutex);
+	if (ft_routine_control(philos) == 1)
+	{
+		pthread_mutex_unlock(&philos->left_fork->mutex);
+		pthread_mutex_unlock(&philos->right_fork->mutex);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_routine_mutex(t_philo *philos)
+{
+	if (philos->id % 2 == 0)
+	{
+		if (ft_routine_even_philos(philos) == 1)
+			return (1);
+	}
+	else
+	{
+		if (ft_routine_odd_philos(philos) == 1)
+			return (1);
+	}
+	return (0);
+}
+
 void	*ft_philosopher_routine(void *args)
 {
 	t_philo	*philos;
@@ -56,28 +84,14 @@ void	*ft_philosopher_routine(void *args)
 	{
 		if (ft_think(philos) == 1)
 			break ;
-		if (philos->left_fork->fork_id < philos->right_fork->fork_id)
-		{
-			pthread_mutex_lock(&philos->left_fork->mutex);
-			if (ft_routine_control(philos) == 1)
-			{
-				pthread_mutex_unlock(&philos->left_fork->mutex);
-				break ;
-			}
-			pthread_mutex_lock(&philos->right_fork->mutex);
-		}
-		else
-		{
-			pthread_mutex_lock(&philos->right_fork->mutex);
-			if (ft_routine_control(philos) == 1)
-			{
-				pthread_mutex_unlock(&philos->right_fork->mutex);
-				break ;
-			}
-			pthread_mutex_lock(&philos->left_fork->mutex);
-		}
-		if (ft_eat(philos) == 1)
+		if (ft_routine_mutex(philos) == 1)
 			break ;
+		if (ft_eat(philos) == 1)
+		{
+			pthread_mutex_unlock(&philos->left_fork->mutex);
+			pthread_mutex_unlock(&philos->right_fork->mutex);
+			break ;
+		}
 		pthread_mutex_unlock(&philos->right_fork->mutex);
 		pthread_mutex_unlock(&philos->left_fork->mutex);
 		if (ft_sleep(philos) == 1)

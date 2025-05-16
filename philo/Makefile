@@ -6,7 +6,7 @@
 #    By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 10:07:26 by jhapke            #+#    #+#              #
-#    Updated: 2025/05/15 09:37:42 by jhapke           ###   ########.fr        #
+#    Updated: 2025/05/16 11:28:26 by jhapke           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SOURCE = 	$(DIR_SRC)/main.c\
 			$(DIR_CORE)/threads.c\
 			$(DIR_CORE)/time.c\
 			$(DIR_CORE)/activity.c\
+			$(DIR_CORE)/print_status.c\
+			$(DIR_CORE)/single_philo.c\
 			$(DIR_UTILS)/utils.c
 
 OBJS = $(SOURCE:.c=.o)

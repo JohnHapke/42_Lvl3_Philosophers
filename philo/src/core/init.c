@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/15 11:12:33 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/16 12:01:10 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,14 @@ int	ft_init_project(int argc, char **argv, t_data *data)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	data->meals_required = -1;
 	data->simulation_end = 0;
-	if ((data->num_of_philo < 1 || data->num_of_philo > MY_INT_MAX)
+	if (argc == 6)
+		data->meals_required = ft_atoi(argv[5]);
+	if ((data->num_of_philo < 1 || data->num_of_philo > 200)
 		|| (data->time_to_die < 0) || (data->time_to_eat < 0)
-		|| (data->time_to_sleep < 0))
+		|| (data->time_to_sleep < 0) || (argc == 6 && data->meals_required < 0))
 	{
 		ft_error_handler(data, NULL, NULL, E_INIT);
 		return (1);
-	}
-	if (argc == 6)
-	{
-		data->meals_required = ft_atoi(argv[5]);
-		if (data->meals_required < 0)
-		{
-			ft_error_handler(data, NULL, NULL, E_INIT);
-			return (1);
-		}
 	}
 	ft_init_time(data);
 	return (0);
@@ -83,7 +76,7 @@ t_philo	*ft_init_philos(t_data *data, t_fork *forks)
 		philos[i].id = i + 1;
 		philos[i].meals = 0;
 		philos[i].data = data;
-		philos[i].last_meal = ft_get_current_time();
+		philos[i].last_meal = data->simulation_time;
 		pthread_mutex_init(&philos[i].mutex_meals, NULL);
 		pthread_mutex_init(&philos[i].mutex_last_meal, NULL);
 	}

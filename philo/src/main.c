@@ -6,20 +6,18 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:05 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/15 11:43:04 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/16 10:14:22 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_project_handler(int argc, char **argv, t_data *data)
+int	ft_project_handler(t_data *data)
 {
 	t_fork		*forks;
 	t_philo		*philos;
 	pthread_t	monitor;
 
-	if (ft_init_project(argc, argv, data) == 1)
-		return (1);
 	forks = ft_init_mutex(data);
 	if (!forks)
 	{
@@ -56,8 +54,14 @@ int	main(int argc, char **argv)
 		ft_error_handler(NULL, NULL, NULL, E_MEM);
 		return (1);
 	}
-	if (ft_project_handler(argc, argv, data) == 1)
+	if (ft_init_project(argc, argv, data) == 1)
 		return (1);
-	free (data);
+	if (data->num_of_philo == 1)
+	{
+		if (ft_handle_single_philo(data) == 1)
+			return (1);
+	}
+	else if (ft_project_handler(data) == 1)
+		return (1);
 	return (0);
 }
