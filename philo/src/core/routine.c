@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:58:02 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/16 11:28:51 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/18 21:59:01 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	ft_routine_control(t_philo *philos)
 	int	flag;
 
 	flag = 0;
-	pthread_mutex_lock(&philos->data->print_mutex);
+	pthread_mutex_lock(&philos->data->mutex_sim_end);
 	if (philos->data->simulation_end == 1)
 		flag = 1;
-	pthread_mutex_unlock(&philos->data->print_mutex);
+	pthread_mutex_unlock(&philos->data->mutex_sim_end);
 	return (flag);
 }
 
@@ -80,6 +80,8 @@ void	*ft_philosopher_routine(void *args)
 	t_philo	*philos;
 
 	philos = (t_philo *)args;
+	if (philos->id % 2 == 0)
+		usleep(1000);
 	while (ft_routine_control(philos) == 0)
 	{
 		if (ft_think(philos) == 1)

@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/16 12:01:19 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/18 18:01:36 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	int				meals_required;
 	long long		simulation_time;
 	int				simulation_end;
+	pthread_mutex_t	mutex_sim_end;
 	pthread_mutex_t	print_mutex;
 }	t_data;
 
@@ -79,6 +80,7 @@ t_philo		*ft_init_philos(t_data *data, t_fork *forks);
 // time
 long long	ft_get_current_time(void);
 long long	ft_elapsed_time(t_data *data);
+void		ft_exact_time(long long ms);
 
 // single philo
 int			ft_handle_single_philo(t_data *data);

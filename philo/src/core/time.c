@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 09:50:45 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/08 17:15:25 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/18 21:35:03 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,19 @@ long long	ft_get_current_time(void)
 long long	ft_elapsed_time(t_data *data)
 {
 	return (ft_get_current_time() - data->simulation_time);
+}
+
+void	ft_exact_time(long long ms)
+{
+	long long	start;
+	long long	current;
+	
+	start = ft_get_current_time();
+	while (1)
+	{
+		current = ft_get_current_time();
+		if ((current - start) >= ms)
+			break ;
+		usleep(100);
+	}
 }

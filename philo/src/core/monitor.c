@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:56:13 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/16 11:42:57 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/18 21:59:16 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	*ft_monitor_routine(void *args)
 	int		dead_philo;
 
 	philos = (t_philo *)args;
+	usleep(1000);
 	while (1)
 	{
 		dead_philo = ft_monitor_time(philos);
@@ -33,6 +34,7 @@ void	*ft_monitor_routine(void *args)
 			ft_print_status(philos, R_ALL);
 			break ;
 		}
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -48,9 +50,8 @@ int	ft_monitor_time(t_philo *philos)
 		pthread_mutex_lock(&philos[i].mutex_last_meal);
 		time_since_last_meal = ft_get_current_time() - philos[i].last_meal;
 		pthread_mutex_unlock(&philos[i].mutex_last_meal);
-		if (time_since_last_meal > philos->data->time_to_die)
+		if (time_since_last_meal >= philos->data->time_to_die)
 			return (i);
-		usleep(100);
 	}
 	return (-1);
 }
@@ -65,15 +66,20 @@ int	ft_monitor_meals(t_philo *philos)
 	j = 0;
 	flag_meals_eaten = 0;
 	if (philos->data->meals_required <= 0)
+		return (0);
+	if (philos->data->meals_required <= 0)
 		return (flag_meals_eaten);
 	while (++i < philos->data->num_of_philo)
 	{
 		pthread_mutex_lock(&philos[i].mutex_meals);
-		if (philos[i].meals == philos->data->meals_required)
+		if (philos[i].meals >= philos->data->meals_required)
 			j++;
+		else
+		{
+			pthread_mutex_unlock(&philos[i].mutex_meals);
+			return (flag_meals_eaten);
+		}
 		pthread_mutex_unlock(&philos[i].mutex_meals);
 	}
-	if (j >= philos->data->num_of_philo)
-		flag_meals_eaten = 1;
-	return (flag_meals_eaten);
+	return (1);
 }
