@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:23:42 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/16 11:24:05 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/19 11:00:16 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_handle_single_philo(t_data *data)
 		return (1);
 	}
 	pthread_mutex_init(&fork->mutex, NULL);
-	pthread_mutex_init(&data->print_mutex, NULL);
 	ft_init_time(data);
 	pthread_mutex_lock(&fork->mutex);
 	printf("%lld %d has taken a fork\n", ft_elapsed_time(data), 1);
@@ -33,7 +32,6 @@ int	ft_handle_single_philo(t_data *data)
 	printf("%lld %d died\n", ft_elapsed_time(data), 1);
 	pthread_mutex_unlock(&fork->mutex);
 	pthread_mutex_destroy(&fork->mutex);
-	pthread_mutex_destroy(&data->print_mutex);
 	free (fork);
 	free (data);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/18 18:01:36 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/19 10:58:24 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_data
 	long long		simulation_time;
 	int				simulation_end;
 	pthread_mutex_t	mutex_sim_end;
-	pthread_mutex_t	print_mutex;
 }	t_data;
 
 typedef struct s_philo

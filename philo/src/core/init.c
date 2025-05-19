@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/18 21:15:11 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/19 10:58:57 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_init_project(int argc, char **argv, t_data *data)
 		data->meals_required = ft_atoi(argv[5]);
 	if ((data->num_of_philo < 1 || data->num_of_philo > 200)
 		|| (data->time_to_die < 0) || (data->time_to_eat < 0)
-		|| (data->time_to_sleep < 0) || (argc == 6 && data->meals_required < 0))
+		|| (data->time_to_sleep < 0) || (argc == 6 && data->meals_required < 1))
 	{
 		ft_error_handler(data, NULL, NULL, E_INIT);
 		return (1);
@@ -56,7 +56,6 @@ t_fork	*ft_init_mutex(t_data *data)
 		forks[i].fork_id = i + 1;
 		pthread_mutex_init(&(forks[i].mutex), NULL);
 	}
-	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->mutex_sim_end, NULL);
 	return (forks);
 }

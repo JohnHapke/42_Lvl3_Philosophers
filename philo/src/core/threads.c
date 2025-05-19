@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 09:19:59 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/16 11:39:40 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/19 11:00:32 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_simulation_end_control(t_philo *philos)
 {
-	pthread_mutex_lock(&philos->data->print_mutex);
+	pthread_mutex_lock(&philos->data->mutex_sim_end);
 	philos->data->simulation_end = 1;
-	pthread_mutex_unlock(&philos->data->print_mutex);
+	pthread_mutex_unlock(&philos->data->mutex_sim_end);
 }
 
 int	ft_create_threads(t_philo *philos, pthread_t *monitor)

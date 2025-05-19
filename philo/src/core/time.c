@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 09:50:45 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/18 21:35:03 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/19 08:51:47 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_exact_time(long long ms)
 {
 	long long	start;
 	long long	current;
-	
+
 	start = ft_get_current_time();
 	while (1)
 	{
