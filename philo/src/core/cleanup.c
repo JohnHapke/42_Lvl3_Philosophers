@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:32:37 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/19 10:58:42 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/19 11:21:49 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	ft_error_handler(t_data *data, t_philo *philos,
 		write(2, "Error: memory allocation error\n", 31);
 	if (code == E_THREAD)
 		write(2, "Error: thread operation failed\n", 31);
-	ft_cleanup_mutex(data, philos, forks);
+	if (code != E_ARG && code != E_INIT)
+		ft_cleanup_mutex(data, philos, forks);
 	ft_cleanup_memory(data, philos, forks);
 }
 
@@ -33,9 +34,7 @@ void	ft_cleanup_mutex(t_data *data, t_philo *philos, t_fork *forks)
 
 	i = -1;
 	if (data)
-	{
 		pthread_mutex_destroy(&data->mutex_sim_end);
-	}
 	if (philos && philos->data)
 	{
 		while (++i < philos->data->num_of_philo)
