@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:32:37 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/19 11:21:49 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:49:46 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ void	ft_cleanup_mutex(t_data *data, t_philo *philos, t_fork *forks)
 	if (philos && philos->data)
 	{
 		while (++i < philos->data->num_of_philo)
-		{
-			pthread_mutex_destroy(&philos[i].mutex_last_meal);
-			pthread_mutex_destroy(&philos[i].mutex_meals);
-		}
+			pthread_mutex_destroy(&philos[i].mutex_meal_lock);
 	}
 	i = -1;
 	if (forks && philos && philos->data)

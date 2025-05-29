@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 16:13:02 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/01 16:23:15 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/29 11:24:33 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atoi(char *str)
 {
-	int	sign;
-	int	i;
-	int	result;
+	int				sign;
+	int				i;
+	long long int	result;
 
 	sign = 1;
 	i = 0;
@@ -32,7 +32,11 @@ int	ft_atoi(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
+		if (result > MY_INT_MAX || result < MY_INT_MIN)
+			return (-1);
 		i++;
 	}
+	if (str[i] != '\0')
+		return (-1);
 	return (result * sign);
 }

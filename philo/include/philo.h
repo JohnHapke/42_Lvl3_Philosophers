@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:13:21 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/19 10:58:24 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/29 11:42:34 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define MY_INT_MIN -2147483648
+# define MY_INT_MAX 2147483647
 
 typedef enum e_error_code
 {
@@ -58,9 +61,8 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread;
-	pthread_mutex_t	mutex_meals;
+	pthread_mutex_t	mutex_meal_lock;
 	int				meals;
-	pthread_mutex_t	mutex_last_meal;
 	long long		last_meal;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
@@ -91,17 +93,14 @@ void		ft_simulation_end_control(t_philo *philos);
 
 // activity
 int			ft_eat(t_philo *philos);
-int			ft_sleep(t_philo *philos);
-int			ft_think(t_philo *philos);
+int			ft_sleep_think(t_philo *philos);
 
 // routine
 void		*ft_philosopher_routine(void *args);
 void		ft_print_status(t_philo *philos,
 				t_routine_code code);
 int			ft_routine_control(t_philo *philos);
-int			ft_routine_mutex(t_philo *philos);
-int			ft_routine_odd_philos(t_philo *philos);
-int			ft_routine_even_philos(t_philo *philos);
+int			ft_take_forks(t_philo *philos);
 
 // monitor
 void		*ft_monitor_routine(void *args);

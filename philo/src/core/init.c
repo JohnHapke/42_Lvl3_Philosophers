@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:31:18 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/19 10:58:57 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:42:49 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ t_philo	*ft_init_philos(t_data *data, t_fork *forks)
 		philos[i].meals = 0;
 		philos[i].data = data;
 		philos[i].last_meal = current_time;
-		pthread_mutex_init(&philos[i].mutex_meals, NULL);
-		pthread_mutex_init(&philos[i].mutex_last_meal, NULL);
+		pthread_mutex_init(&philos[i].mutex_meal_lock, NULL);
 	}
 	return (philos);
 }
