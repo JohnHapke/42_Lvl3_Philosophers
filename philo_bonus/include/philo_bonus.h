@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:48:50 by jhapke            #+#    #+#             */
-/*   Updated: 2025/06/03 11:31:40 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:58:49 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,27 @@ typedef struct s_philo
 	t_data			*data;
 }	t_philo;
 
+// handler
 
+int		ft_project_handler(t_data *data);
+
+// init
+
+int		ft_init_project(int argc, char **argv, t_data *data);
+void	ft_init_time(t_data *data);
+t_philo	*ft_init_philos(t_data *data, int id);
+
+// utils
+
+int		ft_atoi(char *str);
+
+// routine
+
+void	ft_philosopher_routine(t_philo *philos);
+
+// activity
+
+int		ft_eat(t_philo *philos);
+int		ft_sleep_think(t_philo *philos);
 
 #endif

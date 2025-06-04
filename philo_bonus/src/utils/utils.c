@@ -6,11 +6,11 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:50:53 by jhapke            #+#    #+#             */
-/*   Updated: 2025/06/03 11:00:16 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:44:08 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_bonus.h"
+#include "../../include/philo_bonus.h"
 
 int	ft_atoi(char *str)
 {

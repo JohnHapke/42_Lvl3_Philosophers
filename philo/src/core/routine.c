@@ -6,7 +6,7 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 11:58:02 by jhapke            #+#    #+#             */
-/*   Updated: 2025/05/29 11:42:58 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:01:00 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_take_forks(t_philo *philos)
 {
 	t_fork	*first_fork;
 	t_fork	*second_fork;
-	
+
 	if (philos->left_fork->fork_id < philos->right_fork->fork_id)
 	{
 		first_fork = philos->left_fork;

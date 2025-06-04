@@ -6,11 +6,11 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 10:48:32 by jhapke            #+#    #+#             */
-/*   Updated: 2025/06/04 10:29:04 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:44:35 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_bonus.h"
+#include "../include/philo_bonus.h"
 
 int	ft_project_handler(t_data *data)
 {
@@ -18,8 +18,8 @@ int	ft_project_handler(t_data *data)
 	pid_t		pid[data->num_of_philo];
 	int			i;
 
-	i = 0;
-	while (++i <= data->num_of_philo)
+	i = -1;
+	while (++i < data->num_of_philo)
 	{
 		pid[i] = fork();
 		if (pid[i] == 0)
@@ -34,10 +34,6 @@ int	ft_project_handler(t_data *data)
 	}
 	ft_wait_for_childen(pid, data);
 	// WiP
-	if (ft_create_threads(philos, &monitor) == 1)
-		return (1);
-	if (ft_join_threads(philos, &monitor) == 1)
-		return (1);
 	ft_cleanup_mutex(data, philos);
 	ft_cleanup_memory(data, philos);
 	return (0);

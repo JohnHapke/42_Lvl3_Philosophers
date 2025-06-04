@@ -6,11 +6,11 @@
 /*   By: jhapke <jhapke@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 11:01:24 by jhapke            #+#    #+#             */
-/*   Updated: 2025/06/04 10:25:38 by jhapke           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:44:14 by jhapke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_bonus.h"
+#include "../../include/philo_bonus.h"
 
 int	ft_init_project(int argc, char **argv, t_data *data)
 {
@@ -29,8 +29,10 @@ int	ft_init_project(int argc, char **argv, t_data *data)
 		ft_error_handler(data, NULL, NULL, E_INIT);
 		return (1);
 	}
-	data->sem_forks = sem_open("/philo_forks", O_CREAT | O_EXCL, 0644, data->num_of_philo);
-	data->sem_simulation_end = sem_open("/philo_sim_end", O_CREAT | O_EXCL, 0644, 1);
+	data->sem_forks = sem_open("/philo_forks",
+			O_CREAT | O_EXCL, 0644, data->num_of_philo);
+	data->sem_simulation_end = sem_open("/philo_sim_end",
+			O_CREAT | O_EXCL, 0644, 1);
 	ft_init_time(data);
 	return (0);
 }
@@ -53,7 +55,7 @@ t_philo	*ft_init_philos(t_data *data, int id)
 		ft_error_handler(data, philos, E_MEM);
 	data->sem_forks = sem_open("/philo_forks", 0);
 	data->sem_simulation_end = sem_open("/philo_sim_end", 0);
-	philos->id = id;
+	philos->id = id + 1;
 	philos->meals = 0;
 	philos->data = data;
 	philos->last_meal = ft_get_current_time();
